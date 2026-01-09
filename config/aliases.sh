@@ -1,29 +1,10 @@
 # -------------------------------------------------------------------
-# personal
-# -------------------------------------------------------------------
-
-alias cdg="cd ~/git"
-alias zrc="cd $DOT_DIR/zsh"
-alias dot="cd $DOT_DIR"
-alias jp="jupyter lab"
-alias hn="hostname"
-
-# -------------------------------------------------------------------
 # general
 # -------------------------------------------------------------------
 
 alias cl="clear"
-
-# file and directories
-alias rm='rm -i'
-alias rmd='rm -rf'
-alias cp='cp -i'
-alias mv='mv -i'
 alias mkdir='mkdir -p'
 
-# find/read files
-alias h='head'
-alias t='tail'
 # alias rl="readlink -f"
 alias fd='find . -type d -name'
 alias ff='find . -type f -name'
@@ -56,18 +37,6 @@ alias .2='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
-alias /='cd /'
-
-alias d='dirs -v'
-alias 1='cd -1'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-alias 6='cd -6'
-alias 7='cd -7'
-alias 8='cd -8'
-alias 9='cd -9'
 
 
 #-------------------------------------------------------------
@@ -75,44 +44,14 @@ alias 9='cd -9'
 #-------------------------------------------------------------
 
 alias g="git"
-alias gcl="git clone"
 alias ga="git add"
 alias gaa="git add ."
-alias gau="git add -u"
+
 alias gc="git commit -m"
 alias gp="git push"
-alias gpf="git push -f"
-alias gpo='git push origin $(git_current_branch)'
-alias gpp='git push --set-upstream origin $(git_current_branch)'
 
 alias gg='git gui'
-alias glog='git log --oneline --all --graph --decorate'
-
-alias gf="git fetch"
-alias gl="git pull"
-
-alias grb="git rebase"
-alias grbm="git rebase master"
-alias grbc="git rebase --continue"
-alias grbs="git rebase --skip"
-alias grba="git rebase --abort"
-
-alias gd="git diff"
-alias gdt="git difftool"
-alias gs="git status"
-
-alias gco="git checkout"
-alias gcb="git checkout -b"
-alias gcm="git checkout master"
-
-alias grhead="git reset HEAD^"
-alias grhard="git fetch origin && git reset --hard"
-
-alias gst="git stash"
-alias gstp="git stash pop"
-alias gsta="git stash apply"
-alias gstd="git stash drop"
-alias gstc="git stash clear"
+alias gtree='git log --oneline --all --graph --decorate'
 
 alias ggsup='git branch --set-upstream-to=origin/$(git_current_branch)'
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
@@ -144,34 +83,31 @@ alias lu='ls -ltur'       # sort by and show access time, most recent last
 alias lt='ls -ltr'        # sort by date, most recent last
 alias lm='ls -al |more'   # pipe through 'more'
 alias lr='ls -lR'         # recursive ls
-alias tree='tree -Csu'    # nice alternative to 'recursive ls'
-
 #-------------------------------------------------------------
 # chmod
 #-------------------------------------------------------------
 
-chw () {
-  if [ "$#" -eq 1 ]; then
-    chmod a+w $1
-  else
-    echo "Usage: chw <dir>" >&2
-  fi
-}
-chx () {
-  if [ "$#" -eq 1 ]; then
-    chmod a+x $1
-  else
-    echo "Usage: chx <dir>" >&2
-  fi
-}
+# chw () {
+#   if [ "$#" -eq 1 ]; then
+#     chmod a+w $1
+#   else
+#     echo "Usage: chw <dir>" >&2
+#   fi
+# }
+# chx () {
+#   if [ "$#" -eq 1 ]; then
+#     chmod a+x $1
+#   else
+#     echo "Usage: chx <dir>" >&2
+#   fi
+# }
 
 #-------------------------------------------------------------
 # env
 #-------------------------------------------------------------
 alias sv="source .venv/bin/activate"
-alias de="deactivate"
-alias ma="micromamba activate"
-alias md="micromamba deactivate"
+alias penv="source ~/.penv/bin/activate"
+alias wpenv="source /workspace-vast/.penv/bin/activate"
 
 # -------------------------------------------------------------------
 # Slurm
