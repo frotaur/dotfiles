@@ -132,3 +132,5 @@ if [ $extras == true ]; then
         NO_ASK_OPENAI_API_KEY=1 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/hmirin/ask.sh/main/install.sh)"
     fi
 fi
+
+curl -fsSL https://claude.ai/install.sh | bash

@@ -68,5 +68,5 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)"
+    eval "$(ssh-agent -s)" > /dev/null
 fi

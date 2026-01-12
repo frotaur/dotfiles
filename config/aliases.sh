@@ -106,8 +106,7 @@ alias lr='ls -lR'         # recursive ls
 # env
 #-------------------------------------------------------------
 alias sv="source .venv/bin/activate"
-alias penv="source ~/.penv/bin/activate"
-alias wpenv="source /workspace-vast/.penv/bin/activate"
+alias penv="source /workspace-vast/vassilisp/envs/.penv/bin/activate"
 
 # -------------------------------------------------------------------
 # Slurm
@@ -125,6 +124,7 @@ alias qtest='sbatch --gres=gpu:1 --wrap="hostname; nvidia-smi"'
 alias qlogin='srun --gres=gpu:1 --pty $SHELL'
 # Cancel all your queued jobs
 alias qclear='scancel -u $(whoami)'
+alias newjupy='~/dotfiles/runpod/useful_scripts/start_dev_jupyter.sh'
 # Functions to submit quick jobs with varying GPUs
 # Usage: qrun 4 script.sh → submits 'script.sh' with 4 GPUs
 qrun() {
