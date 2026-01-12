@@ -58,6 +58,7 @@ if [ $machine == "Linux" ]; then
         sudo apt-get install -y ripgrep
 
         yes | curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         yes | brew install dust jless
 
         yes | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -66,7 +67,7 @@ if [ $machine == "Linux" ]; then
         yes | brew install peco
 
         sudo apt-get install -y npm
-        yes | npm i -g shell-ask
+        # yes | npm i -g shell-ask # We have ask anyway at the end, which can also write to the terminal
     fi
 
 # Installing on mac with homebrew
@@ -128,6 +129,6 @@ fi
 if [ $extras == true ]; then
     echo " --------- INSTALLING EXTRAS ⏳ ----------- "
     if command -v cargo &> /dev/null; then
-        NO_ASK_OPENAI_API_KEY=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/hmirin/ask.sh/main/install.sh)"
+        NO_ASK_OPENAI_API_KEY=1 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/hmirin/ask.sh/main/install.sh)"
     fi
 fi

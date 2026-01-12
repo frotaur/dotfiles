@@ -1,6 +1,19 @@
 CONFIG_DIR=$(dirname $(realpath ${(%):-%x}))
 DOT_DIR=$CONFIG_DIR/..
 
+if [ ! -f "$HOME/.anthropic_key" ]; then
+  echo "Warning: $HOME/.anthropic_key file not found, please create and put your Anthropic API key in it to use related features."
+fi
+if [ -f "$HOME/.anthropic_key" ]; then
+  export ANTHROPIC_API_KEY=$(cat $HOME/.anthropic_key)
+  if command -v ask-sh &> /dev/null; then
+    export ASK_SH_ANTHROPIC_API_KEY=$(cat $HOME/.anthropic_key)
+    export ASK_SH_LLM_PROVIDER=anthropic
+    export ASK_SH_ANTHROPIC_MODEL=claude-haiku-4-5-20251001
+    eval "$(ask-sh --init)"
+  fi
+fi
+
 # Instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -54,8 +67,6 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-if command -v ask-sh &> /dev/null; then
-  export ASK_SH_OPENAI_API_KEY=$(cat $HOME/.openai_api_key)
-  export ASK_SH_OPENAI_MODEL=gpt-4o-mini
-  eval "$(ask-sh --init)"
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)"
 fi
