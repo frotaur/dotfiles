@@ -19,7 +19,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 export TERM="xterm-256color"
-export HF_HOME=/workspace-vast/pretrained_ckpts
+export HF_HUB_CACHE="/workspace-vast/pretrained_ckpts/hub"
 ZSH_DISABLE_COMPFIX=true
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH=$HOME/.oh-my-zsh
@@ -49,23 +49,23 @@ if [ -d "$HOME/.pyenv" ]; then
   eval "$(pyenv init -)"
 fi
 
-if [ -d "$HOME/.local/bin/micromamba" ]; then
-  export MAMBA_EXE="$HOME/.local/bin/micromamba"
-  export MAMBA_ROOT_PREFIX="$HOME/micromamba"
-  __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__mamba_setup"
-  else
-      alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
-  fi
-  unset __mamba_setup
-fi
+# if [ -d "$HOME/.local/bin/micromamba" ]; then
+#   export MAMBA_EXE="$HOME/.local/bin/micromamba"
+#   export MAMBA_ROOT_PREFIX="$HOME/micromamba"
+#   __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+#   if [ $? -eq 0 ]; then
+#       eval "$__mamba_setup"
+#   else
+#       alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+#   fi
+#   unset __mamba_setup
+# fi
 
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
+# FNM_PATH="$HOME/.local/share/fnm"
+# if [ -d "$FNM_PATH" ]; then
+#   export PATH="$FNM_PATH:$PATH"
+#   eval "`fnm env`"
+# fi
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$(ssh-agent -s)" > /dev/null
