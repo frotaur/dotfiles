@@ -13,6 +13,10 @@ while getopts "g:c:m:h" opt; do
         m) MEM="$OPTARG" ;;
         h)
             echo "Usage: $0 [-g gpus] [-c cpus] [-m mem]"
+            echo "Will start a slurm dev job, and spit out the Jupyter Server URL"
+            echo "to paste into your jupyter inside VSCode."
+            echo "This only works if you use VSCode SSH'ed into the runpod cluster"
+            echo "To attach to the runpod job, use: tmux attach -t jupyterdev"
             echo ""
             echo "Options:"
             echo "  -g <num>     Number of GPUs (default: 1)"
@@ -41,6 +45,7 @@ echo "Starting Jupyter with: ${GPUS} GPU(s), ${CPUS} CPU(s), ${MEM} memory"
 echo ""
 
 # Create a new tmux session and run the srun command inside it
+# TOMODIFY : the job-name, ideally should be D_<yourusername> according to notion guide!
 tmux new-session -s jupyterdev -d "srun -p dev,overflow \
      --qos=dev \
      --cpus-per-task=${CPUS} \
@@ -49,6 +54,7 @@ tmux new-session -s jupyterdev -d "srun -p dev,overflow \
      --job-name=D_vassilisp \
      --pty bash -c '
 # Activate the uv venv (make sure ipykernel is installed there)
+# TOMODIFY : change the path to a .venv on vast that you want to use for that
 source /workspace-vast/vassilisp/envs/.penv/bin/activate
 
 # Install the Jupyter kernel if it doesnt already exist
