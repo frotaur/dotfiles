@@ -5,6 +5,7 @@ GPUS=1
 CPUS=8
 MEM="32G"
 
+USERNAME=$(whoami)
 # Parse command-line arguments
 while getopts "g:c:m:h" opt; do
     case $opt in
@@ -42,23 +43,23 @@ if tmux has-session -t jupyterdev 2>/dev/null; then
 fi
 
 echo "Starting Jupyter with: ${GPUS} GPU(s), ${CPUS} CPU(s), ${MEM} memory"
+echo "Username: ${USERNAME}"
 echo ""
 
 # Create a new tmux session and run the srun command inside it
-# TOMODIFY : the job-name, ideally should be D_<yourusername> according to notion guide!
 tmux new-session -s jupyterdev -d "srun -p dev,overflow \
      --qos=dev \
      --cpus-per-task=${CPUS} \
      --gres=gpu:${GPUS} \
      --mem=${MEM} \
-     --job-name=D_vassilisp \
+     --job-name=D_${USERNAME} \
      --pty bash -c '
 # Activate the uv venv (make sure ipykernel is installed there)
-# TOMODIFY : change the path to a .venv on vast that you want to use for that
-source /workspace-vast/vassilisp/envs/.penv/bin/activate
+
+source /workspace-vast/${USERNAME}/envs/.penv/bin/activate
 
 # Install the Jupyter kernel if it doesnt already exist
-jupyter kernelspec list | grep -q devpodenv || python -m ipykernel install --user --name devpodenv --display-name \"devpodenv\"
+jupyter kernelspec list | grep -q yoenv || python -m ipykernel install --user --name yoenv --display-name \"yoenv\"
 
 # Start Jupyter Lab
 echo \"================================================\"
