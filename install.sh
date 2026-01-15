@@ -57,13 +57,23 @@ if [ $machine == "Linux" ]; then
     if [ $extras == true ]; then
         sudo apt-get install -y ripgrep
 
-        yes | curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
-        yes | brew install dust jless
+        if [ -x ~/.linuxbrew/bin/brew ]; then
+            echo "Homebrew already installed, skipping..."
+        else
+            git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+            mkdir -p ~/.linuxbrew/bin
+            ln -s ../Homebrew/bin/brew ~/.linuxbrew/bin/brew
+            ~/.linuxbrew/bin/brew update --force --quiet
+        fi
 
-        yes | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        eval "$(~/.linuxbrew/bin/brew shellenv)"
+        
+        brew install dust jless
+
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
         . "$HOME/.cargo/env" 
-        yes | cargo install code2prompt
-        yes | brew install peco
+        cargo install code2prompt
+        brew install peco
 
         sudo apt-get install -y npm
         yes | npm i -g shell-ask
