@@ -54,4 +54,6 @@ fi
 echo "changing default shell to zsh"
 sudo chsh -s $(which zsh)
 
+mkdir -p $HOME/.claude
+cp $DOT_DIR/.claude/settings.json $HOME/.claude/settings.json
 zsh
