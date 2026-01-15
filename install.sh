@@ -57,13 +57,16 @@ if [ $machine == "Linux" ]; then
     if [ $extras == true ]; then
         sudo apt-get install -y ripgrep
 
-        if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-        echo "Homebrew already installed, skipping..."
+        if [ -x ~/.linuxbrew/bin/brew ]; then
+            echo "Homebrew already installed, skipping..."
         else
-            yes | curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
+            git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+            mkdir -p ~/.linuxbrew/bin
+            ln -s ../Homebrew/bin/brew ~/.linuxbrew/bin/brew
+            ~/.linuxbrew/bin/brew update --force --quiet
         fi
-        
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+        eval "$(~/.linuxbrew/bin/brew shellenv zsh)"
         
         brew install dust jless
 
